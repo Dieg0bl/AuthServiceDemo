@@ -1,0 +1,28 @@
+# Maven
+/target/
+!.mvn/wrapper/maven-wrapper.jar
+
+# IDEs
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# OS
+.DS_Store
+Thumbs.db
+
+# VSCode
+.vscode/
+
+# Logs y temporales
+*.log
+*.tmp
+*.bak
+*.swp
+*.swo
+
+# Compilados
+*.class
+
+.github/copilot-instructions.md
