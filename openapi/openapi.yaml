@@ -1,0 +1,105 @@
+openapi: 3.0.3
+info:
+  title: Servicio de Autenticación
+  description: API REST para autenticación con Spring Security y JWT
+  version: 0.1.0
+servers:
+  - url: http://localhost:8080
+    description: Servidor de desarrollo
+
+paths:
+  /auth/login:
+    post:
+      summary: Iniciar sesión
+      description: Autenticar usuario y obtener token JWT
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                usernameOrEmail:
+                  type: string
+                  description: Nombre de usuario o email
+                password:
+                  type: string
+                  description: Contraseña
+              required:
+                - usernameOrEmail
+                - password
+      responses:
+        '200':
+          description: Login exitoso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    description: Token JWT
+        '401':
+          description: Credenciales inválidas
+
+  /auth/refresh:
+    post:
+      summary: Renovar token
+      description: Obtener nuevo token JWT usando refresh token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                refreshToken:
+                  type: string
+                  description: Token de renovación
+              required:
+                - refreshToken
+      responses:
+        '200':
+          description: Token renovado exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    description: Nuevo token JWT
+        '401':
+          description: Refresh token inválido
+
+  /me:
+    get:
+      summary: Obtener perfil del usuario
+      description: Obtener información del usuario autenticado
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Información del usuario
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  username:
+                    type: string
+                    description: Nombre de usuario
+                  email:
+                    type: string
+                    description: Email del usuario
+        '401':
+          description: Token no válido o ausente
+        '403':
+          description: Acceso prohibido
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

@@ -2,12 +2,14 @@ package com.diegobarreiro.secureuserapi.service;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 import org.springframework.stereotype.Service;
 import java.util.Date;
+import javax.crypto.SecretKey;
 
 @Service
 public class JwtService {
-    private final String jwtSecret = "jwtSecretKeyDemo"; // TODO: Cambiar por variable de entorno
+    private final SecretKey jwtSecret = Keys.secretKeyFor(SignatureAlgorithm.HS256);
     private final long jwtExpirationMs = 3600000;
 
     public String generateToken(String username) {
@@ -15,7 +17,7 @@ public class JwtService {
                 .setSubject(username)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + jwtExpirationMs))
-                .signWith(SignatureAlgorithm.HS512, jwtSecret)
+                .signWith(jwtSecret)
                 .compact();
     }
 
