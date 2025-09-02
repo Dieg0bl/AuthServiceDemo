@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.diegobarreiro</groupId>
     <artifactId>secureuser-api</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.1.0-SNAPSHOT</version>
     <name>SecureUserApi</name>
     <description>API REST profesional para gestión segura de usuarios con Spring Boot 3</description>
     <properties>
@@ -34,6 +34,12 @@
             <artifactId>mysql-connector-j</artifactId>
             <scope>runtime</scope>
         </dependency>
+        <!-- H2 para desarrollo -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -43,12 +49,6 @@
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <!-- H2 para tests -->
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
             <scope>test</scope>
         </dependency>
         <!-- Swagger/OpenAPI -->

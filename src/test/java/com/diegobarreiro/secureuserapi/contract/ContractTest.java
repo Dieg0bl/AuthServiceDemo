@@ -51,6 +51,6 @@ public class ContractTest {
         .when()
             .get("/me")
         .then()
-            .statusCode(401);
+            .statusCode(403);
     }
 }
